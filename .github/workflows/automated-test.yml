@@ -30,7 +30,8 @@ jobs:
       - name: Test
         run: |
           mkdir ./generated-docs
-
+          touch ./generated-docs/index.html
+          protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
       - name: Git Auto Commit
         uses: stefanzweifel/git-auto-commit-action@v4.8.0
         with:
