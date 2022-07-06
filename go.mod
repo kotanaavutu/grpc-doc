@@ -20,5 +20,6 @@ require (
 	github.com/pseudomuto/protokit v0.2.1 // indirect
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
 	google.golang.org/genproto v0.0.0-20220706132729-d86698d07c53 // indirect
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 )
