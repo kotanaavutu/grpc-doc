@@ -66,34 +66,7 @@ jobs:
                 "title": "Automation",
                 "type": "basic",
                 "body": "
-                  <!DOCTYPE html>
-                  <html>
-                    <head>
-                      <title>Protocol Documentation</title>
-                      <meta charset="UTF-8">
-                      <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
-                      <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-                    </head>
-                    <body>
-                      <h1 id="title">Protocol Documentation</h1>
-                      <h2>Table of Contents</h2>
-                      <div id="toc-container">
-                        <ul id="toc">
-                            <li>
-                              <a href="#proto%2fIgnore.proto">proto/Ignore.proto</a>
-                              <ul>
-                                  <li>
-                                    <a href="#com.example.Ignored"><span class="badge">M</span>Ignored</a>
-                                  </li>
-                              </ul>
-                            </li>
-                          <li><a href="#scalar-value-types">Scalar Value Types</a></li>
-                        </ul>
-                      </div>     
-                    </body>
-                  </html>
-
-
+                  Fuck 
                 ",
                 "category": "62c5c1dd961ffc001afae149"
             }'`
