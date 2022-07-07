@@ -41,10 +41,19 @@ jobs:
         with:
           path: ./generated-docs/index.html
 
+      - name: export
+        run: |
+          export CHANGELOG="${{steps.filedata.outputs.content}}"
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "::set-output name=changelog::$(echo "$CHANGELOG")"
+
       - name: Make a curl request to Readme
         env:
           STEP_OUTPUT: ${{steps.filedata.outputs.content}}
         run: |
+
           CODE=`curl --request POST \
               --url https://dash.readme.com/api/v1/docs \
               --header 'Accept: application/json' \
