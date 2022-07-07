@@ -40,7 +40,7 @@ jobs:
           do
             file_text=$line
           done < ./generated-docs/index.html
-          echo ::set-output name=new_value::$file_text
+          echo "${​​​​{​​​​​​​​​​​ file_text }​​​​​​​​​​​}​​​​​​​​​​​​​​​​​​"
 
       - run: echo "${​​​​{​​​​​​​​​​​ steps.output_test.outputs.new_value }​​​​​​​​​​​}​​​​​​​​​​​​​​​​​​"
 
