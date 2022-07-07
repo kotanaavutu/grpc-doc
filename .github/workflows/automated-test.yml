@@ -33,6 +33,10 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
+      - name: Echo package.json
+        run: |
+          grep sometext ./generated-docs/index.html | tr -d "\n"
+
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
@@ -40,9 +44,7 @@ jobs:
           path: ./generated-docs/index.html
 
       - name: Echo package.json
-        run: |
-          gp = `grep sometext ./generated-docs/index.html | tr -d "\n" `
-          echo -n "$gp"
+        run: echo "${{ steps.filedata.outputs.content }}"
 
       - run: echo ::set-output name=things::$(grep '\S' ./generated-docs/index.html)
         id: counter
