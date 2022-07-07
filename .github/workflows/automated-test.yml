@@ -71,7 +71,7 @@ jobs:
           echo "$CODE"    
           if [ $CODE!="200" ] 
           then
-              echo "FAILURE"
-          else
               echo "SUCCESS"
+          else
+              echo "FAILURE"
           fi
