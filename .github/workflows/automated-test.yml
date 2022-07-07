@@ -46,9 +46,9 @@ jobs:
         env:
           filedata: ${{ steps.filedata.outputs.content }}
         run: |
-          filedata="${filedata//'%'/'%25'}"
-          filedata="${filedata//$'\n'/'%0A'}"
-          filedata="${filedata//$'\r'/'%0D'}"
+          "${steps.filedata.outputs.content//'%'/'%25'}"
+          "${steps.filedata.outputs.content//$'\n'/'%0A'}"
+          "${steps.filedata.outputs.content//$'\r'/'%0D'}"
           echo "${{ steps.filedata.outputs.content }}"
 
       - name: print data
