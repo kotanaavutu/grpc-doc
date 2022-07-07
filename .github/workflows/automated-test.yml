@@ -47,13 +47,19 @@ jobs:
             steps.filedata.outputs.content
           ) }}
 
+      - name: format the string
+        env:
+          data: ${{ steps.filedata.outputs.content }}
+        run: |
+          data="${data//$'%'/%25}"
+          data="${data//$'\n'/%0A}"
+          data="${data//$'\r'/%0D}"
+          echo "::set-env name=value::$data"
+
       - name: Make a curl request to Readme
         env:
           STEP_OUTPUT: $SPAM_STRING
         run: |
-          STEP_OUTPUT="${STEP_OUTPUT//'%'/'%25'}"
-          STEP_OUTPUT="${STEP_OUTPUT//$'\n'/'%0A'}"
-          STEP_OUTPUT="${STEP_OUTPUT//$'\r'/'%0D'}"
           CODE=`curl --request POST \
               --url https://dash.readme.com/api/v1/docs \
               --header 'Accept: application/json' \
