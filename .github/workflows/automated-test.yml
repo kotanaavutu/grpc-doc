@@ -58,7 +58,6 @@ jobs:
                 "body": " ${{process.env.STEP_OUTPUT}}", \
                 "category": "62c5c1dd961ffc001afae149" \
               }'`
-            
           if [ $CODE!="200" ] 
           then
               echo "FAILURE"
