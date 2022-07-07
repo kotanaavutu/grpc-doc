@@ -24,7 +24,7 @@ jobs:
       - name: Test
         run: |
           mkdir ./generated-docs
-          protoc --doc_out=./generated-doc --doc_opt=html,index.html ../../proto/*.proto
+          protoc --doc_out=./generated-docs --doc_opt=html,index.html ../../proto/*.proto
 
       - name: Read generated html file
         id: filedata
