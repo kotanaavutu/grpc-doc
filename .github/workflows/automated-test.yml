@@ -42,11 +42,11 @@ jobs:
           path: ./generated-docs/demo.json
 
       - name: Echo package.json
-        run: echo "${{ steps.package.outputs.content }}"
+        run: echo "${{ steps.filedata.outputs.content }}"
 
       - name: Make a curl request to Readme
         env:
-          STEP_OUTPUT: ${{steps.package.outputs.content}}
+          STEP_OUTPUT: ${{steps.filedata.outputs.content}}
         run: |
           CODE=`curl --request POST \
               --url https://dash.readme.com/api/v1/docs \
