@@ -53,7 +53,7 @@ jobs:
           --header 'Content-Type: application/json' \
           --data '{
             "hidden": true,
-            "order": 1,
+            "order": 999,
             "error": {
                   "code": "string"
             },
