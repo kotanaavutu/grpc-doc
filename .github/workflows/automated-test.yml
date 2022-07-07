@@ -48,9 +48,9 @@ jobs:
         run: |
           CODE=`curl --request POST \
               --url https://dash.readme.com/api/v1/docs \
-              --header 'Accept: text/html' \
+              --header 'Accept: application/json' \
               --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
-              --header 'Content-Type: text/html' \
+              --header 'Content-Type: application/json' \
               --data '{ \
                 "hidden": true, \
                 "order": 999, \
