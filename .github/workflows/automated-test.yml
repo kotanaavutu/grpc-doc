@@ -43,7 +43,7 @@ jobs:
 
       - name: Echo package.json
         run: |
-          MAGIC_NUMBER="${{ steps.filedata.outputs.content }}""
+          MAGIC_NUMBER="${{ steps.filedata.outputs.content }}"
           echo "Found universal answer: $MAGIC_NUMBER"
           echo "Exporting it as ENV variable..."
           echo "MAGIC_NUMBER=$MAGIC_NUMBER"
