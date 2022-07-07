@@ -31,15 +31,15 @@ jobs:
       - name: Get protoc-gen-doc
         run: go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
 
-      - name: Test
+      - name: Run protoc command
         run: |
-          protoc --doc_out=./generated-docs --doc_opt=json,demo.json proto/*.proto
+          protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./generated-docs/demo.json
+          path: ./generated-docs/index.html
 
       - name: Make a curl request to Readme
         env:
