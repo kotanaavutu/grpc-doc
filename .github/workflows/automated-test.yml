@@ -41,12 +41,17 @@ jobs:
         with:
           path: ./generated-docs/index.html
 
-      - name: Echo package.json
+      - name: Set env
+        run: echo "MAGIC_NUMBER=$(echo ${{ steps.filedata.outputs.content }} | cut -c 1-6)" >> $GITHUB_ENV
+
+      - name: Test
         run: |
-          MAGIC_NUMBER="${{ steps.filedata.outputs.content }}"
-          echo "Found universal answer: $MAGIC_NUMBER"
-          echo "Exporting it as ENV variable..."
-          echo "MAGIC_NUMBER=$MAGIC_NUMBER"
+          echo $MAGIC_NUMBER
+          echo "${{ env.MAGIC_NUMBER }}"
+
+      - name: Test env
+        run: |
+          echo "${{ env.MAGIC_NUMBER }}"
 
       - name: Make a curl request to Readme
         run: |
@@ -72,10 +77,10 @@ jobs:
                 "order": 999,
                 "title": "Automation",
                 "type": "basic",
-                "body": "${{ steps.filedata.outputs.content }}",
+                "body": "${{ MAGIC_NUMBER }}",
                 "category": "62c5c1dd961ffc001afae149"
             }'`
-          echo "${{ steps.filedata.outputs.content }}"
+
           if [ $CODE!="200" ] 
           then
               echo "FAILURE"
