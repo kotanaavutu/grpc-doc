@@ -46,7 +46,7 @@ jobs:
           STEP_OUTPUT: ${{steps.filedata.outputs.content}}
         run: |
           echo '::set-output name=SELECTED_COLOR:: "${env.STEP_OUTPUT}"|tr '\n' ' ' '
-          echo "${{SELECTED_COLOR}}"
+          echo "${{env.SELECTED_COLOR}}"
           CODE=`curl --request POST \
               --url https://dash.readme.com/api/v1/docs \
               --header 'Accept: application/json' \
