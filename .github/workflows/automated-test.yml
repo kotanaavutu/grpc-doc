@@ -53,7 +53,7 @@ jobs:
                 "order": 999, \
                 "title": "Automation", \
                 "type": "basic", \
-                "body": "Testing data2", \
+                "body": "<html><body>Data</body></html>", \
                 "category": "62c5c1dd961ffc001afae149" \
               }'`
             
