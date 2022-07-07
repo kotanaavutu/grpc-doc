@@ -25,11 +25,6 @@ jobs:
         run: |
           mkdir ./generated-docs
           protoc --doc_out=./generated-doc --doc_opt=html,index.html ../../proto/*.proto
-      - name: Git Auto Commit
-        uses: stefanzweifel/git-auto-commit-action@v4.8.0
-        with:
-          commit_message: "proto docs are generated"
-          branch: master
 
       - name: Curl command to post doc to readme
         run: |
