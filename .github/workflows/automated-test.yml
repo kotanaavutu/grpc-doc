@@ -66,17 +66,15 @@ jobs:
           STEP_OUTPUT: ${{steps.counter.outputs.things}}
         run: |
           CODE=`curl --request POST \
-              --url https://dash.readme.com/api/v1/docs \
+              --url https://dash.readme.com/api/v1/custompages \
               --header 'Accept: application/json' \
               --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
               --header 'Content-Type: application/json' \
               --data '{ \
-                "hidden": true, \
-                "order": 999, \
-                "title": "Automation", \
-                "type": "basic", \
-                "body": "${{steps.set_var.outputs.packageJson}}", \
-                "category": "62c5c1dd961ffc001afae149" \
+                "htmlmode": true,
+                "hidden": true,
+                "title": "Automation page",
+                "html": "${{steps.set_var.outputs.packageJson}}", \
               }'`
           echo "$CODE"    
           if [ $CODE!="200" ] 
