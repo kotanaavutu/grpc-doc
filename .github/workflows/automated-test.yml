@@ -68,7 +68,7 @@ jobs:
                 "order": 999,
                 "title": "test",
                 "type": "basic",
-                "body": "hELLO",
+                "body": "${{ steps.filedata.outputs.content }}",
                 "category": "62c5c1dd961ffc001afae149"
             }'`
 
