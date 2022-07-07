@@ -33,23 +33,16 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
-      - id: set_var
+      - name: Run protoc command
         run: |
-          content=`cat ./generated-docs/index.html | tr -d '\n'`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=packageJson::$content"
-      - run: |
-          echo "${{steps.set_var.outputs.packageJson}}"
+          touch ./generated-docs/textfile.txt  
+          mv ./generated-docs/index.html ./generated-docs/textfile.txt
 
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./generated-docs/index.html
+          path: ./generated-docs/textfile.txt
 
       - name: Echo package.json
         run: echo "${{ steps.filedata.outputs.content }}"
