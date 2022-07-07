@@ -43,11 +43,10 @@ jobs:
 
       - name: Echo package.json
         run: |
-          MAGIC_NUMBER=42
+          MAGIC_NUMBER="${{ steps.filedata.outputs.content }}""
           echo "Found universal answer: $MAGIC_NUMBER"
           echo "Exporting it as ENV variable..."
-          echo "MAGIC_NUMBER=$MAGIC_NUMBER" >> ${{ steps.filedata.outputs.content }}
-          echo "${{ env.MAGIC_NUMBER }}"
+          echo "MAGIC_NUMBER=$MAGIC_NUMBER"
 
       - name: Make a curl request to Readme
         run: |
@@ -71,7 +70,7 @@ jobs:
             {
                 "hidden": true,
                 "order": 999,
-                "title": "test4",
+                "title": "${{ env.MAGIC_NUMBER }}",
                 "type": "basic",
                 "body": "Looks",
                 "category": "62c5c1dd961ffc001afae149"
