@@ -41,9 +41,15 @@ jobs:
         with:
           path: ./generated-docs/index.html
 
+      - name: Use the GitHub Actions format function to provide some details about Spam
+        run: |
+          echo ::set-env name=SPAM_STRING::${{ format(
+            steps.filedata.outputs.content
+          ) }}
+
       - name: Make a curl request to Readme
         env:
-          STEP_OUTPUT: ${{ steps.filedata.outputs.content}}
+          STEP_OUTPUT: $SPAM_STRING
         run: |
           STEP_OUTPUT="${STEP_OUTPUT//'%'/'%25'}"
           STEP_OUTPUT="${STEP_OUTPUT//$'\n'/'%0A'}"
