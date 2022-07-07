@@ -49,7 +49,7 @@ jobs:
           filedata="${filedata//$'%'/%25}"
           filedata="${filedata//$'\n'/%0A}"
           filedata="${filedata//$'\r'/%0D}"
-          echo ::set-output name=pr_title::filedata
+          echo ::set-output name=pr_title::${env.filedata}
 
       - name: print data
         run: |
