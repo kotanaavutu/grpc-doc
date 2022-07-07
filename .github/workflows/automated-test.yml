@@ -42,16 +42,18 @@ jobs:
           path: ./generated-docs/index.html
 
       - name: format the string
+        id: vars
         env:
           filedata: ${{ steps.filedata.outputs.content }}
         run: |
           filedata="${filedata//$'%'/%25}"
           filedata="${filedata//$'\n'/%0A}"
           filedata="${filedata//$'\r'/%0D}"
+          echo ::set-output name=pr_title::"${{filedata}}"
 
       - name: print data
         run: |
-          echo "${{ env.filedata }}"
+          echo "${{ steps.vars.outputs.pr_title }}"
 
       - name: Make a curl request to Readme
         env:
