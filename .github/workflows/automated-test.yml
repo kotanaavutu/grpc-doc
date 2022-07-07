@@ -58,7 +58,7 @@ jobs:
         env:
           STEP_OUTPUT: ${{steps.counter.outputs.things}}
         run: |
-          CODE=curl --request POST \
+          CODE="curl --request POST \
               --url "https://dash.readme.com/api/v1/docs" \
               --header 'Accept: application/json' \
               --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
@@ -70,7 +70,7 @@ jobs:
                 "type": "basic", \
                 "body": "${{env.STEP_OUTPUT}}", \
                 "category": "62c5c1dd961ffc001afae149" \
-              }'
+              }'"
           echo "$CODE"    
           if [ $CODE!="200" ] 
           then
