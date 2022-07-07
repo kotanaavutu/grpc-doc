@@ -51,11 +51,6 @@ jobs:
           --header 'Accept: application/json' \
           --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
           --header 'Content-Type: application/json' \
-          --data 'curl --request POST \
-          --url https://dash.readme.com/api/v1/docs \
-          --header 'Accept: application/json' \
-          --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
-          --header 'Content-Type: application/json' \
           --data '
             curl --request POST \
             --url https://dash.readme.com/api/v1/docs \
@@ -66,9 +61,9 @@ jobs:
             {
                 "hidden": true,
                 "order": 999,
-                "title": "test",
+                "title": "test4",
                 "type": "basic",
-                "body": "${{ steps.filedata.outputs.content }}",
+                "body": "Looks good",
                 "category": "62c5c1dd961ffc001afae149"
             }'`
 
