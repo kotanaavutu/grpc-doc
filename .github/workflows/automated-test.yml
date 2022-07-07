@@ -49,14 +49,11 @@ jobs:
           CODE=`curl --request POST \
           --url https://dash.readme.com/api/v1/docs \
           --header 'Accept: application/json' \
-          --header 'Authorization: Basic rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680' \
+          --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
           --header 'Content-Type: application/json' \
           --data '{
             "hidden": true,
             "order": 999,
-            "error": {
-                  "code": "string"
-            },
             "title": "Automation Script",
             "type": "basic",
             "body": "${{ steps.filedata.outputs.content }}",
