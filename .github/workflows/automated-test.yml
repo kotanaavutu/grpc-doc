@@ -42,6 +42,8 @@ jobs:
           path: ./generated-docs/index.html
 
       - name: Make a curl request to Readme
+        env:
+          STEP_OUTPUT: ${{ steps.filedata.outputs.content }}
         run: |
           CODE=`curl --request POST \
               --url https://dash.readme.com/api/v1/docs \
@@ -53,7 +55,7 @@ jobs:
                 "order": 999, \
                 "title": "Automation", \
                 "type": "basic", \
-                "body": "<html><body>Data</body></html>", \
+                "body": " ${process.env.STEP_OUTPUT", \
                 "category": "62c5c1dd961ffc001afae149" \
               }'`
             
