@@ -35,22 +35,21 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
-      - run: echo ::set-output name=things::$(grep '\S' ./generated-docs/index.html)
-        id: counter
-        shell: bash
-
-      - name: Echo things.json
-        run: echo "${{ steps.counter.outputs.things }}"
+      - name: Read generated html file
+        id: filedata
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./generated-docs/index.html
 
       - name: Make a curl request to Readme
         env:
-          STEP_OUTPUT: ${{steps.counter.outputs.things}}
+          STEP_OUTPUT: ${{steps.package.outputs.content}}
         run: |
           CODE=`curl --request POST \
               --url https://dash.readme.com/api/v1/docs \
-              --header 'Accept: application/json' \
+              --header 'Accept: text/html' \
               --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
-              --header 'Content-Type: application/json' \
+              --header 'Content-Type: text/html' \
               --data '{ \
                 "hidden": true, \
                 "order": 999, \
