@@ -71,6 +71,7 @@ jobs:
                 "body": "${{env.STEP_OUTPUT}}", \
                 "category": "62c5c1dd961ffc001afae149" \
               }'`
+          echo $CODE
           if [ "$CODE" == "200" ]; then
               echo "SUCCESS"
           else
