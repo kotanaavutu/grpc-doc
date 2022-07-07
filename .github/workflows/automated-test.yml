@@ -41,6 +41,9 @@ jobs:
         with:
           path: ./generated-docs/index.json
 
+      - name: Echo package.json
+        run: echo "${{ steps.package.outputs.content }}"
+
       - name: Make a curl request to Readme
         env:
           STEP_OUTPUT: ${{steps.package.outputs.content}}
