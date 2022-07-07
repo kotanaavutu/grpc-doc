@@ -42,11 +42,26 @@ jobs:
           path: ./generated-docs/index.html
 
       - name: Echo package.json
-        run: echo "${{ steps.filedata.outputs.content }}"
+        run: |
+          MAGIC_NUMBER=42
+          echo "Found universal answer: $MAGIC_NUMBER"
+          echo "Exporting it as ENV variable..."
+          echo "MAGIC_NUMBER=$MAGIC_NUMBER" >> ${{ steps.filedata.outputs.content }}
+          echo "${{ env.MAGIC_NUMBER }}"
 
       - name: Make a curl request to Readme
         run: |
-          CODE=`--data '
+          CODE=`curl --request POST \
+          --url https://dash.readme.com/api/v1/docs \
+          --header 'Accept: application/json' \
+          --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
+          --header 'Content-Type: application/json' \
+          --data 'curl --request POST \
+          --url https://dash.readme.com/api/v1/docs \
+          --header 'Accept: application/json' \
+          --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
+          --header 'Content-Type: application/json' \
+          --data '
             curl --request POST \
             --url https://dash.readme.com/api/v1/docs \
             --header 'Accept: application/json' \
@@ -58,7 +73,7 @@ jobs:
                 "order": 999,
                 "title": "test4",
                 "type": "basic",
-                "body": "Looks Good",
+                "body": "Looks",
                 "category": "62c5c1dd961ffc001afae149"
             }'`
 
