@@ -46,7 +46,7 @@ jobs:
       - name: Echo package.json
         run: echo "${{ steps.filedata.outputs.content }}"
 
-      - run: echo ::set-output name=things::$(cat ./generated-docs/index.html | tr -d " \t\r\n")
+      - run: ::set-output name=things::$(cat ./generated-docs/index.html | tr -d " \t\r\n")
         id: counter
         shell: bash
 
