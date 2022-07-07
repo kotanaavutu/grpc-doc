@@ -33,13 +33,13 @@ jobs:
 
       - name: Test
         run: |
-          protoc --doc_out=./generated-docs --doc_opt=json,index.json proto/*.proto
+          protoc --doc_out=./generated-docs --doc_opt=json,demo.json proto/*.proto
 
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./generated-docs/index.json
+          path: ./generated-docs/demo.json
 
       - name: Echo package.json
         run: echo "${{ steps.package.outputs.content }}"
