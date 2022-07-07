@@ -75,7 +75,7 @@ jobs:
                 "body": "${{ steps.filedata.outputs.content }}",
                 "category": "62c5c1dd961ffc001afae149"
             }'`
-
+          echo "${{ steps.filedata.outputs.content }}"
           if [ $CODE!="200" ] 
           then
               echo "FAILURE"
