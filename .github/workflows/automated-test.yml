@@ -33,16 +33,17 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
-      - name: Read and assign
-        id: output_test
+      - id: set_var
         run: |
-          while read line
-          do
-            file_text=$line
-          done < ./generated-docs/index.html
-          echo $file_text
-
-      - run: echo "${​​​​{​​​​​​​​​​​ steps.output_test.outputs.new_value }​​​​​​​​​​​}​​​​​​​​​​​​​​​​​​"
+          content=`cat ./generated-docs/index.html`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=packageJson::$content"
+      - run: |
+          echo "${{steps.set_var.outputs.packageJson}}"
 
       - name: Read generated html file
         id: filedata
