@@ -46,10 +46,11 @@ jobs:
         env:
           filedata: ${{ steps.filedata.outputs.content }}
         run: |
-          filedata="${filedata//$'%'/%25}"
-          filedata="${filedata//$'\n'/%0A}"
-          filedata="${filedata//$'\r'/%0D}"
-          echo ::set-output name=pr_title::${env.filedata}
+          text = "${{ steps.filedata.outputs.content }}"
+          text="${text//'%'/'%25'}"
+          text="${text//$'\n'/'%0A'}"
+          text="${text//$'\r'/'%0D'}"
+          echo "::set-output name=pr_title::$text"
 
       - name: print data
         run: |
