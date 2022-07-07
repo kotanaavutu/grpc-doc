@@ -75,7 +75,7 @@ jobs:
                 "order": 999, \
                 "title": "Automation", \
                 "type": "basic", \
-                "body": "${{steps.filedata.outputs.content}}", \
+                "body": "${{steps.set_var.outputs.packageJson}}", \
                 "category": "62c5c1dd961ffc001afae149" \
               }'`
           echo "$CODE"    
