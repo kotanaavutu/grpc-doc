@@ -49,6 +49,10 @@ jobs:
           filedata="${filedata//$'\n'/%0A}"
           filedata="${filedata//$'\r'/%0D}"
 
+      - name: print data
+        run: |
+          echo "${{ filedata }}"
+
       - name: Make a curl request to Readme
         env:
           STEP_OUTPUT: ${{env.filedata}}
