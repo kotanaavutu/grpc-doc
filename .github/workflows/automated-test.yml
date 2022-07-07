@@ -35,7 +35,7 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
-      - run: echo ::set-output name=things::$(grep -v '^[[:blank:]]*$' ./generated-docs/index.html)
+      - run: echo ::set-output name=things::$(grep '\S' ./generated-docs/index.html)
         id: counter
         shell: bash
 
