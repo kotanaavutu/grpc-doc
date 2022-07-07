@@ -51,6 +51,11 @@ jobs:
           --header 'Accept: application/json' \
           --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
           --header 'Content-Type: application/json' \
+          --data 'curl --request POST \
+          --url https://dash.readme.com/api/v1/docs \
+          --header 'Accept: application/json' \
+          --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
+          --header 'Content-Type: application/json' \
           --data '
             curl --request POST \
             --url https://dash.readme.com/api/v1/docs \
@@ -63,13 +68,13 @@ jobs:
                 "order": 999,
                 "title": "test4",
                 "type": "basic",
-                "body": "Looks good",
+                "body": "Looks",
                 "category": "62c5c1dd961ffc001afae149"
             }'`
 
-            if [ $CODE!="200" ] 
-            then
-                echo "FAILURE"
-            else
-                echo "SUCCESS"
-            fi
+          if [ $CODE!="200" ] 
+          then
+              echo "FAILURE"
+          else
+              echo "SUCCESS"
+          fi
