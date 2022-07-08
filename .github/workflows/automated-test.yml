@@ -2,7 +2,7 @@ name: Go
 
 on:
   pull_request:
-    branches: [test-ab]
+    branches: [master]
 
 jobs:
   Automated-classdiagrams-gen:
