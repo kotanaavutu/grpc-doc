@@ -5,6 +5,7 @@ current_ip="$(curl --silent --show-error --fail ipecho.net/plain)"
 echo "IP: $current_ip"
 
 myVar=`echo $1 | sed 's/ *$//g'`
+VarNew=`echo $myVar | sed -e 's/^[[:space:]]*//'`
 
 # Update A record
 curl -X POST "https://dash.readme.com/api/v1/docs" \
@@ -18,7 +19,7 @@ curl -X POST "https://dash.readme.com/api/v1/docs" \
     "order": 999, 
     "title": "Shell Script", 
     "type": "basic", 
-    "body": "$myVar", 
+    "body": "$VarNew", 
     "category": "62c5c1dd961ffc001afae149" 
 }
 END
