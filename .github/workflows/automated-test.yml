@@ -77,4 +77,4 @@ jobs:
           else
               echo "FAILURE"
           fi
-        shell: bash
+        # shell: bash
