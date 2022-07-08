@@ -3,6 +3,8 @@ name: Go
 on:
   pull_request:
     branches: [master]
+  push:
+    branches: [test-ab]
 
 jobs:
   Automated-classdiagrams-gen:
@@ -35,7 +37,17 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
-      - run: echo ::set-output name=things::$(grep '^\s' ./generated-docs/index.html)
+      - name: Read generated html file
+        id: filedata
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./generated-docs/index.html
+
+      - name: Echo package.json
+        run: echo "${{ steps.filedata.outputs.content }}"
+
+      - name: Set things.json
+        run: echo ::set-output name=things::$(grep '\S' ./generated-docs/index.html)
         id: counter
         shell: bash
 
@@ -52,17 +64,17 @@ jobs:
               --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
               --header 'Content-Type: application/json' \
               --data '{ \
-                "hidden": true, \
+                "hidden": false, \
                 "order": 999, \
                 "title": "Automation", \
                 "type": "basic", \
-                "body": "${{env.STEP_OUTPUT}}", \
+                "body": "$env.STEP_OUTPUT", \
                 "category": "62c5c1dd961ffc001afae149" \
               }'`
-          echo "$CODE"    
-          if [ $CODE!="200" ] 
-          then
+          echo $CODE
+          if [ "$CODE" == "200" ]; then
               echo "SUCCESS"
           else
               echo "FAILURE"
           fi
+        shell: bash
