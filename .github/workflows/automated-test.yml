@@ -3,10 +3,14 @@ name: Go
 on:
   pull_request:
     branches: [master]
+  push:
+    branches: [test-ab]
 
 jobs:
   Automated-classdiagrams-gen:
     runs-on: ubuntu-latest
+    env:
+      PROTO_DIR: proto
     steps:
       - uses: actions/checkout@v2
       - uses: wizhi/setup-buf@v1
@@ -25,29 +29,23 @@ jobs:
         run: |
           go get github.com/golang/protobuf/protoc-gen-go
           go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
-
       - name: Get protoc-gen-doc
         run: go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
 
       - name: Run protoc command
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
-
-      - name: Run protoc command
-        run: |
-          touch ./generated-docs/textfile.txt  
-          mv ./generated-docs/index.html ./generated-docs/textfile.txt
-
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./generated-docs/textfile.txt
+          path: ./generated-docs/index.html
 
       - name: Echo package.json
         run: echo "${{ steps.filedata.outputs.content }}"
 
-      - run: echo ::set-output name=things::$(grep '\S' ./generated-docs/index.html)
+      - name: Set things.json
+        run: echo ::set-output name=things::$(grep '\S' ./generated-docs/index.html)
         id: counter
         shell: bash
 
@@ -59,20 +57,22 @@ jobs:
           STEP_OUTPUT: ${{steps.counter.outputs.things}}
         run: |
           CODE=`curl --request POST \
-              --url https://dash.readme.com/api/v1/custompages \
+              --url https://dash.readme.com/api/v1/docs \
               --header 'Accept: application/json' \
               --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
               --header 'Content-Type: application/json' \
               --data '{ \
-                "htmlmode": true,
-                "hidden": true,
-                "title": "$env.STEP_OUTPUT",
-                "html": "${{steps.filedata.outputs.content}}", \
+                "hidden": false, \
+                "order": 999, \
+                "title": "Automation", \
+                "type": "basic", \
+                "body": "$env.STEP_OUTPUT", \
+                "category": "62c5c1dd961ffc001afae149" \
               }'`
-          echo "$CODE"    
-          if [ $CODE!="200" ] 
-          then
+          echo $CODE
+          if [ "$CODE" == "200" ]; then
               echo "SUCCESS"
           else
               echo "FAILURE"
           fi
+        shell: bash
