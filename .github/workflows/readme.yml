@@ -16,12 +16,6 @@ jobs:
       # Note that these next three steps are not required
       # in order to sync your docs to ReadMe.
 
-      # First, we run a script that sets a few outputs:
-      # our package version and our Node.js version.
-      - name: Retrieve version values from package.json
-        id: rdme-version
-        run: ./bin/set-version-output
-
       # Next, we use this output to do a few find/replaces!
       - name: Find and replace Node.js version placeholders
         uses: jacobtomlinson/gha-find-replace@v2
