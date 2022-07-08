@@ -1,30 +1,48 @@
-name: Sync `documentation` directory to ReadMe
+name: Go
 
-# Run workflow for every push to the `main` branch
 on:
   push:
     branches: [test]
 
 jobs:
-  sync:
+  Readme-Docs-Upload:
     runs-on: ubuntu-latest
+    env:
+      PROTO_DIR: proto
     steps:
-      - name: Checkout this repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # Let's dynamically update our docs with the latest version of rdme!
-      # Note that these next three steps are not required
-      # in order to sync your docs to ReadMe.
+      - uses: wizhi/setup-buf@v1
+        with:
+          version: "0.36.0"
+      - uses: arduino/setup-protoc@v1
+        with:
+          version: "3.x"
 
-      # And finally, with our updated documentation,
-      # we run the `rdme` GitHub Action to sync the Markdown file
-      # in the `documentation` directory.
-      # Here's the page we're syncing: https://docs.readme.com/docs/rdme
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Installing protoc-gen-go
+        run: |
+          go get github.com/golang/protobuf/protoc-gen-go
+          go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+
+      - name: Get protoc-gen-doc
+        run: go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
+
+      - name: Run protoc command
+        run: |
+          protoc --doc_out=./docs --doc_opt=html,index.html proto/*.proto
+          protoc --doc_out=./docs --doc_opt=markdown,demo.md proto/*.proto
+
       - name: Sync docs to ReadMe
+
         # We use the `main` branch as ref for GitHub Action
         # This is NOT recommended, as it can break your workflows without notice!
         # We recommend specifying a fixed version, i.e. @7.0
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./documentation --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+          rdme: docs ./docs --key=rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680 --version=1.0
