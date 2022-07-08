@@ -2,7 +2,7 @@ name: Readme
 
 on:
   push:
-    branches: [test]
+    branches: [test-1]
 
 jobs:
   Readme-Docs-Upload:
@@ -34,7 +34,6 @@ jobs:
 
       - name: Run protoc command
         run: |
-          protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
           protoc --doc_out=./generated-docs --doc_opt=markdown,demo.md proto/*.proto
 
       - name: Sync docs to ReadMe
@@ -45,4 +44,4 @@ jobs:
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./generated-docs --key=rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680 --version=1.0
+          rdme: docs ./generated-docs --key=<API-KEY> --version=1.0
