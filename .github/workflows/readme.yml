@@ -34,12 +34,7 @@ jobs:
       - name: Run protoc command
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
-
-      - name: Read generated html file
-        id: filedata
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./generated-docs/index.html
+          protoc --doc_out=./generated-docs --doc_opt=markdown,demo.md proto/*.proto
 
       - name: Sync docs to ReadMe
         # We use the `main` branch as ref for GitHub Action
@@ -48,4 +43,4 @@ jobs:
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./generated-docs/index.html --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+          rdme: docs ./generated-docs --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
