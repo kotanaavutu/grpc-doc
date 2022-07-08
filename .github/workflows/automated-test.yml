@@ -43,15 +43,6 @@ jobs:
       - name: Echo things.json
         run: echo "${{ steps.textwrap.outputs.wrapp }}"
 
-      - name: Run bash script
-        shell: bash
-        run: |
-          chmod +x ./script/readme.sh
-          param1='${{ steps.textwrap.outputs.wrapp }}'
-          param2=$(date +"%Y-%m-%d %H:%M:%S")
-          param3=4
-          ./script/readme.sh "${param1}" "${param2}" "${param3}"
-
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
@@ -60,6 +51,15 @@ jobs:
 
       - name: Echo package.json
         run: echo "${{ steps.filedata.outputs.content }}"
+
+      - name: Run bash script
+        shell: bash
+        run: |
+          chmod +x ./script/readme.sh
+          param1='${{ steps.filedata.outputs.content }}'
+          param2=$(date +"%Y-%m-%d %H:%M:%S")
+          param3=4
+          ./script/readme.sh "${param1}" "${param2}" "${param3}"
 
       - name: Set things.json
         run: echo ::set-output name=things::$(grep -v -e '^[[:space:]]*$' ./generated-docs/index.html)
