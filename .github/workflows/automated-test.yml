@@ -63,7 +63,7 @@ jobs:
               --header 'Accept: application/json' \
               --header 'Authorization: Basic cmRtZV94bjhzOWgwYWY3YTIwMGU3ZWY3YWIxZGJjMjBmYTkyMmI5ZDBmZGQ1NDAyMGEyYWE3OTQ3NGQ3MTk2ODliOGYyYmY4NjgwOg==' \
               --header 'Content-Type: application/json' \
-              --data '{ \
+              --data-binary '{ \
                 "hidden": false, \
                 "order": 999, \
                 "title": "Automation", \
