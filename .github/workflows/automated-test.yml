@@ -49,8 +49,8 @@ jobs:
         with:
           path: ./generated-docs/index.html
 
-      - name: Echo package.json
-        run: echo "${{ steps.filedata.outputs.content }}"
+      - name: Echo ./generated-docs/index.html
+        run: xmllint --html ./generated-docs/index.html
 
       - name: Run bash script
         shell: bash
