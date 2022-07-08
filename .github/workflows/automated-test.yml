@@ -56,7 +56,7 @@ jobs:
 
       - name: Make a curl request to Readme
         env:
-          STEP_OUTPUT: ${{steps.counter.outputs.things}}
+          STEP_OUTPUT: ${{steps.filedata.outputs.content}}
         run: |
           CODE=`curl --request POST \
               --url https://dash.readme.com/api/v1/docs \
