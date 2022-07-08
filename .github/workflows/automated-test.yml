@@ -35,11 +35,19 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
+      - name: Set things.json
+        run: echo ::set-output name=wrapp::$(fold -w 80 -s  ./generated-docs/index.html)
+        id: textwrap
+        shell: bash
+
+      - name: Echo things.json
+        run: echo "${{ steps.textwrap.outputs.wrapp }}"
+
       - name: Run bash script
         shell: bash
         run: |
           chmod +x ./script/readme.sh
-          param1='GitHub'
+          param1='${{ steps.textwrap.outputs.wrapp }}'
           param2=$(date +"%Y-%m-%d %H:%M:%S")
           param3=4
           ./script/readme.sh "${param1}" "${param2}" "${param3}"

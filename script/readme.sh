@@ -16,7 +16,7 @@ curl -X POST "https://dash.readme.com/api/v1/docs" \
     "order": 999, 
     "title": "Shell Script", 
     "type": "basic", 
-    "body": "steps.textwrap.outputs.wrapp", 
+    "body": "$1", 
     "category": "62c5c1dd961ffc001afae149" 
 }
 END
