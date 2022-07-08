@@ -66,7 +66,7 @@ jobs:
                 "order": 999, \
                 "title": "Automation", \
                 "type": "basic", \
-                "body": '${{env.STEP_OUTPUT}}', \
+                "body": "<!DOCTYPE html><html><head><title>Protocol Documentation</title></head></html>", \
                 "category": "62c7c78a546225016dc192f4" \
               }'`
           echo $CODE
