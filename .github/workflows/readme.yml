@@ -34,8 +34,8 @@ jobs:
 
       - name: Run protoc command
         run: |
-          protoc --doc_out=./docs --doc_opt=html,index.html proto/*.proto
-          protoc --doc_out=./docs --doc_opt=markdown,demo.md proto/*.proto
+          protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
+          protoc --doc_out=./generated-docs --doc_opt=markdown,demo.md proto/*.proto
 
       - name: Sync docs to ReadMe
 
@@ -45,4 +45,4 @@ jobs:
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@main
         with:
-          rdme: openapi ./docs --key=${{ secrets.README_API_KEY }} --id=${{ secrets.README_API_DEFINITION_ID }}
+          rdme: openapi ./generated-docs --key=${{ secrets.README_API_KEY }} --id=${{ secrets.README_API_DEFINITION_ID }}
