@@ -38,11 +38,11 @@ jobs:
       - name: Run bash script
         shell: bash
         run: |
-          chmod +x ./script/test.sh
+          chmod +x ./script/readme.sh
           param1='GitHub'
           param2=$(date +"%Y-%m-%d %H:%M:%S")
           param3=4
-          ./script/test.sh "${param1}" "${param2}" "${param3}"
+          ./script/readme.sh "${param1}" "${param2}" "${param3}"
 
       - name: Read generated html file
         id: filedata
