@@ -35,6 +35,10 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
+      - name: Moving build to artifacts directory
+        run: |
+          sh ./script/test.sh
+
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
