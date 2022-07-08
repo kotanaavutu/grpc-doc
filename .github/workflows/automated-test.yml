@@ -38,7 +38,7 @@ jobs:
       - name: Run bash script
         shell: bash
         run: |
-          chmod +x ./shell-scripts/bash-script.sh
+          chmod +x ./script/test.sh
           param1='GitHub'
           param2=$(date +"%Y-%m-%d %H:%M:%S")
           param3=4
