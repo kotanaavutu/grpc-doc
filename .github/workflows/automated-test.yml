@@ -45,6 +45,14 @@ jobs:
         run: echo "${{ steps.filedata.outputs.content }}"
 
       - name: Set things.json
+        run: echo ::set-output name=wrapp::$(fold -w 80 -s  ./generated-docs/index.html)
+        id: textwrap
+        shell: bash
+
+      - name: Echo things.json
+        run: echo "${{ steps.textwrap.outputs.wrapp }}"
+
+      - name: Set things.json
         run: echo ::set-output name=things::$(grep -v -e '^[[:space:]]*$' ./generated-docs/index.html)
         id: counter
         shell: bash
