@@ -1,0 +1,51 @@
+name: Go
+
+on:
+  push:
+    branches: [test]
+
+jobs:
+  Readme-Docs-Upload:
+    runs-on: ubuntu-latest
+    env:
+      PROTO_DIR: proto
+    steps:
+      - uses: actions/checkout@v2
+      - uses: wizhi/setup-buf@v1
+        with:
+          version: "0.36.0"
+      - uses: arduino/setup-protoc@v1
+        with:
+          version: "3.x"
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Installing protoc-gen-go
+        run: |
+          go get github.com/golang/protobuf/protoc-gen-go
+          go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+
+      - name: Get protoc-gen-doc
+        run: go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
+
+      - name: Run protoc command
+        run: |
+          protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
+
+      - name: Read generated html file
+        id: filedata
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./generated-docs/index.html
+
+      - name: Sync docs to ReadMe
+        # We use the `main` branch as ref for GitHub Action
+        # This is NOT recommended, as it can break your workflows without notice!
+        # We recommend specifying a fixed version, i.e. @7.0
+        # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
+        uses: readmeio/rdme@main
+        with:
+          rdme: docs ./generated-docs/index.html --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=2.0
