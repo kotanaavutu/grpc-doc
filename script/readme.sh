@@ -7,6 +7,8 @@ echo "IP: $current_ip"
 myVar=`echo $1 | sed 's/ *$//g'`
 VarNew=`echo $myVar | sed -e 's/^[[:space:]]*//'`
 
+echo "IP: $VarNew"
+
 # Update A record
 curl -X POST "https://dash.readme.com/api/v1/docs" \
     -H "Content-Type: application/json" \
