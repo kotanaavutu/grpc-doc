@@ -35,9 +35,14 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
-      - name: Moving build to artifacts directory
+      - name: Run bash script
+        shell: bash
         run: |
-          sh ./script/test.sh
+          chmod +x ./shell-scripts/bash-script.sh
+          param1='GitHub'
+          param2=$(date +"%Y-%m-%d %H:%M:%S")
+          param3=4
+          ./script/test.sh "${param1}" "${param2}" "${param3}"
 
       - name: Read generated html file
         id: filedata
