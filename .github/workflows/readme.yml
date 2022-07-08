@@ -34,6 +34,7 @@ jobs:
 
       - name: Run protoc command
         run: |
+          mkdir ./docs
           protoc --doc_out=./docs --doc_opt=html,index.html proto/*.proto
           protoc --doc_out=./docs --doc_opt=markdown,demo.md proto/*.proto
 
