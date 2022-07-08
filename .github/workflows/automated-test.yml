@@ -67,7 +67,7 @@ jobs:
                 "title": "Automation", \
                 "type": "basic", \
                 "body": "<!DOCTYPE html><html><head><title>Protocol Documentation</title></head></html>", \
-                "category": "62c7c78a546225016dc192f4" \
+                "category": "62c5c1dd961ffc001afae149" \
               }'`
           echo $CODE
           if [ "$CODE" == "200" ]; then
