@@ -35,15 +35,6 @@ jobs:
         run: |
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
-      - name: Read generated html file
-        id: filedata
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./generated-docs/index.html
-
-      - name: Echo package.json
-        run: echo "${{ steps.filedata.outputs.content }}"
-
       - run: echo ::set-output name=things::$(grep '^\s' ./generated-docs/index.html)
         id: counter
         shell: bash
