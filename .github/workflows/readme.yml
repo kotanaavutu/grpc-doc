@@ -2,7 +2,7 @@ name: Readme
 
 on:
   push:
-    branches: [test-1]
+    branches: [test]
 
 jobs:
   Readme-Docs-Upload:
@@ -15,26 +15,10 @@ jobs:
       - uses: wizhi/setup-buf@v1
         with:
           version: "0.36.0"
+
       - uses: arduino/setup-protoc@v1
         with:
           version: "3.x"
-
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17
-
-      - name: Installing protoc-gen-go
-        run: |
-          go get github.com/golang/protobuf/protoc-gen-go
-          go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
-
-      - name: Get protoc-gen-doc
-        run: go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
-
-      - name: Run protoc command
-        run: |
-          protoc --doc_out=./generated-docs --doc_opt=markdown,demo.md proto/*.proto
 
       - name: Sync docs to ReadMe
 
@@ -44,4 +28,4 @@ jobs:
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./generated-docs --key=<API-KEY> --version=1.0
+          rdme: docs ./generated --key=rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680 --version=1.0
