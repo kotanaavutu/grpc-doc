@@ -38,7 +38,7 @@ jobs:
 
       - name: Add category to md file
         run: |
-          cat ./grpc/index.md ./script/category.md > ./grpc/index-new.md
+          cat ./script/category.md ./grpc/index.md > ./grpc/index-new.md
         shell: bash
 
       - name: Read generated html file
