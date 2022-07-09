@@ -45,7 +45,7 @@ jobs:
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./generated-new/-new.md
+          path: ./generated-new/index-new.md
 
       - name: Echo things.json
         run: echo "${{ steps.filedata.outputs.content }}"
