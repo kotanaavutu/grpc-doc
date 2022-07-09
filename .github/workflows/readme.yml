@@ -36,13 +36,18 @@ jobs:
           mkdir ./generated-new
           protoc --doc_out=./generated-new --doc_opt=markdown,index.md proto/*.proto
 
-      - name: Set things.json
-        run: echo ::set-output name=wrapp::$(sed -i '1s/^/ demo text /'  ./generated-new/index.md)
-        id: textwrap
+      - name: Add category to md file
+        run: sed -i '1s/^/Demo text\n/'  ./generated-new/index.md)
         shell: bash
 
+      - name: Read generated html file
+        id: filedata
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./generated-docs/index.html
+
       - name: Echo things.json
-        run: echo "${{ steps.textwrap.outputs.wrapp }}"
+        run: echo "${{ steps.filedata.outputs.content }}"
 
       - name: Sync docs to ReadMe
 
