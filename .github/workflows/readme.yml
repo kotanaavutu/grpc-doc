@@ -38,14 +38,14 @@ jobs:
 
       - name: Add category to md file
         run: |
-          echo "line 1" | sudo tee -a ./generated-new/index.md
+          cat <(echo "hello World") ./generated-new/index.md > ./generated-new/index-new.md
         shell: bash
 
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./generated-new/index.md
+          path: ./generated-new/-new.md
 
       - name: Echo things.json
         run: echo "${{ steps.filedata.outputs.content }}"
