@@ -38,10 +38,7 @@ jobs:
 
       - name: Add category to md file
         run: |
-          sed -i '/Line to insert after/ i\
-            Line one to insert\
-            second new line to insert\
-            third new line to insert' ./generated-new/index.md
+          echo "line 1" | sudo tee -a ./generated-new/index.md
         shell: bash
 
       - name: Read generated html file
