@@ -29,7 +29,14 @@ jobs:
           mkdir ./grpc-doc
           protoc --doc_out=./grpc-doc --doc_opt=markdown,index.md proto/*.proto
 
+      - name: Check category.md file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "category.md"
+
       - name: Create header file
+        if: steps.check_files.outputs.files_exists == 'false'
         run: |
           touch ./category.md
           echo "---
