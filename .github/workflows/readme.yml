@@ -33,7 +33,7 @@ jobs:
 
       - name: Run protoc command
         run: |
-          mkdir ./generated-new
+          mkdir ./docs
           protoc --doc_out=./docs --doc_opt=markdown,index.md proto/*.proto
 
       - name: Add category to md file
