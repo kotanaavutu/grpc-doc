@@ -11,6 +11,7 @@ jobs:
       PROTO_DIR: proto
     steps:
       - uses: actions/checkout@v2
+
       - uses: wizhi/setup-buf@v1
         with:
           version: "0.36.0"
