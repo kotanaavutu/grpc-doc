@@ -37,14 +37,18 @@ jobs:
           protoc --doc_out=./generated-new --doc_opt=markdown,index.md proto/*.proto
 
       - name: Add category to md file
-        run: sed -i '1s/^/Demo text\n/'  ./generated-new/index.md)
+        run: |
+          sed -i '/Line to insert after/ i\
+            Line one to insert\
+            second new line to insert\
+            third new line to insert' ./generated-new/index.md
         shell: bash
 
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./generated-docs/index.html
+          path: ./generated-new/index.md
 
       - name: Echo things.json
         run: echo "${{ steps.filedata.outputs.content }}"
