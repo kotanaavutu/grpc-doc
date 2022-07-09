@@ -29,6 +29,21 @@ jobs:
           mkdir ./grpc-doc
           protoc --doc_out=./grpc-doc --doc_opt=markdown,index.md proto/*.proto
 
+      - name: Create header file
+        run: |
+          cat ./category.md
+          echo "---
+          title: Syncing Docs
+          excerpt: Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!
+          category: 62c5c1dd961ffc001afae149
+          ---
+          " > ./category.md
+        shell: bash
+
+      - name: Show category file content
+        run: |
+          cat ./category.md
+
       - name: Add category to md file
         run: |
           cat ./script/category.md ./grpc-doc/index.md > ./grpc-doc/index-new.md
