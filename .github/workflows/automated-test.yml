@@ -33,6 +33,7 @@ jobs:
 
       - name: Run protoc command
         run: |
+          mkdir ./generated-docs/
           protoc --doc_out=./generated-docs --doc_opt=html,index.html proto/*.proto
 
       - name: Set things.json
@@ -48,9 +49,6 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./generated-docs/index.html
-
-      - name: Echo ./generated-docs/index.html
-        run: xmllint --html ./generated-docs/index.html
 
       - name: Run bash script
         shell: bash
