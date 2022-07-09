@@ -53,11 +53,11 @@ jobs:
       - name: Run bash script
         shell: bash
         run: |
-          chmod +x ./script/readme.sh
+          chmod +x ./script/test.sh
           param1='${{ steps.filedata.outputs.content }}'
           param2=$(date +"%Y-%m-%d %H:%M:%S")
           param3=4
-          ./script/readme.sh "${param1}" "${param2}" "${param3}"
+          ./script/test.sh "${param1}" "${param2}" "${param3}"
 
       - name: Set things.json
         run: echo ::set-output name=things::$(grep -v -e '^[[:space:]]*$' ./generated-docs/index.html)
