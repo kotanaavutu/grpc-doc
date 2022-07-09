@@ -33,23 +33,19 @@ jobs:
 
       - name: Run protoc command
         run: |
-          mkdir ./docs
-          protoc --doc_out=./docs --doc_opt=markdown,index.md proto/*.proto
+          mkdir ./grpc
+          protoc --doc_out=./grpc --doc_opt=markdown,index.md proto/*.proto
 
       - name: Add category to md file
         run: |
-          cat <("---
-          title: Syncing Docs via CLI / GitHub
-          excerpt: Update your docs automatically with rdme, ReadMes official CLI and GitHub Action!
-          category: 62c5c1dd961ffc001afae149
-          ---") ./docs/index.md > ./docs/index-new.md
+          cat ./grpc/index.md ./script/category.md > ./grpc/index-new.md
         shell: bash
 
       - name: Read generated html file
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./docs/index-new.md
+          path: ./grpc/index-new.md
 
       - name: Echo things.json
         run: echo "${{ steps.filedata.outputs.content }}"
@@ -62,4 +58,4 @@ jobs:
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./docs --key=rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680 --version=1.0
+          rdme: docs ./grpc --key=rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680 --version=1.0
