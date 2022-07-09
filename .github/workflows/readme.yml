@@ -38,6 +38,7 @@ jobs:
 
       - name: Add category to md file
         run: |
+          ls ./grpc
           cat ./script/category.md ./grpc/index.md > ./grpc/index-new.md
         shell: bash
 
