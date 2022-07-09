@@ -11,20 +11,12 @@ jobs:
       PROTO_DIR: proto
     steps:
       - uses: actions/checkout@v2
-
       - uses: wizhi/setup-buf@v1
         with:
           version: "0.36.0"
-
       - uses: arduino/setup-protoc@v1
         with:
           version: "3.x"
-
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17
-
       - name: Installing protoc-gen-go
         run: |
           go get github.com/golang/protobuf/protoc-gen-go
@@ -33,30 +25,19 @@ jobs:
 
       - name: Run protoc command
         run: |
-          mkdir ./grpc
-          protoc --doc_out=./grpc --doc_opt=markdown,index.md proto/*.proto
+          mkdir ./grpc-doc
+          protoc --doc_out=./grpc-doc --doc_opt=markdown,index.md proto/*.proto
 
       - name: Add category to md file
         run: |
-          ls ./grpc
-          cat ./script/category.md ./grpc/index.md > ./grpc/index-new.md
+          ls ./grpc-doc
+          cat ./script/category.md ./grpc-doc/index.md > ./grpc-doc/index-new.md
         shell: bash
 
-      - name: Read generated html file
-        id: filedata
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./grpc/index-new.md
-
-      - name: Echo things.json
-        run: echo "${{ steps.filedata.outputs.content }}"
+      - name: Show file content
+        run: cat ./grpc-doc/index-new.md
 
       - name: Sync docs to ReadMe
-
-        # We use the `main` branch as ref for GitHub Action
-        # This is NOT recommended, as it can break your workflows without notice!
-        # We recommend specifying a fixed version, i.e. @7.0
-        # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./grpc --key=rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680 --version=1.0
+          rdme: docs ./grpc-doc --key=rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680 --version=1.0
