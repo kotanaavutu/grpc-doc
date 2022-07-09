@@ -37,7 +37,7 @@ jobs:
           protoc --doc_out=./generated-new --doc_opt=markdown,index.md proto/*.proto
 
       - name: Set things.json
-        run: echo ::set-output name=wrapp::$(sed -i '1s/^/ ---\ntitle:Syncing Docs\nexcerpt:Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!\ncategory:62c5c1dd961ffc001afae149\n--- /'  ./generated-new/index.md)
+        run: echo ::set-output name=wrapp::$(sed -i '1s/^/ ---\ntitle:Syncing Docs\nexcerpt:Update your docs automatically with, ReadMe official CLI and GitHub Action\ncategory:62c5c1dd961ffc001afae149\n--- /'  ./generated-new/index.md)
         id: textwrap
         shell: bash
 
