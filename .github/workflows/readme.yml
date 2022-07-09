@@ -35,7 +35,7 @@ jobs:
           echo "---
           title: Syncing Docs
           excerpt: Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!
-          category: 62c5c1dd961ffc001afae149
+          category: ${{ secrets.README_API_DEFINITION_ID }}
           ---
           " > ./category.md
         shell: bash
@@ -58,4 +58,4 @@ jobs:
       - name: Sync docs to ReadMe
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./grpc-doc --key=rdme_xn8s9h0af7a200e7ef7ab1dbc20fa922b9d0fdd54020a2aa79474d719689b8f2bf8680 --version=1.0
+          rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
