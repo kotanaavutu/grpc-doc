@@ -35,6 +35,7 @@ jobs:
 
       - name: Show file content
         run: |
+          rm ./grpc-doc/index.md
           ls ./grpc-doc
           cat ./grpc-doc/index-new.md
 
