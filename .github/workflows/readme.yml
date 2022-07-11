@@ -40,7 +40,7 @@ jobs:
         run: |
           touch ./category.md
           echo "---
-          title: Syncing Docs
+          title: Syncing Docs new
           excerpt: Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!
           category: ${{ secrets.README_API_DEFINITION_ID }}
           ---
@@ -53,14 +53,13 @@ jobs:
 
       - name: Add category to md file
         run: |
-          cat ./category.md ./grpc-doc/index.md > ./grpc-doc/index-new.md
+          cat ./category.md ./grpc-doc/index.md > ./grpc-doc/index.md
         shell: bash
 
       - name: Show file content
         run: |
-          rm ./grpc-doc/index.md
           ls ./grpc-doc
-          cat ./grpc-doc/index-new.md
+          cat ./grpc-doc/index.md
 
       - name: Sync docs to ReadMe
         uses: readmeio/rdme@main
