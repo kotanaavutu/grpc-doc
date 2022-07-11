@@ -71,5 +71,6 @@ jobs:
 
       - id: set-matrix
         run: echo "::set-output name=matrix::$(ls -a ./grpc-doc )"
+
       - name: display matrux
-        run: echo "${{matrix}}"
+        run: echo ${{matrix}}
