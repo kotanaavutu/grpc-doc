@@ -1,9 +1,5 @@
 name: Readme
 
-on:
-  push:
-    branches: [test]
-
 jobs:
   Readme-Docs-Upload:
     runs-on: ubuntu-latest
