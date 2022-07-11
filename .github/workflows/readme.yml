@@ -7,6 +7,8 @@ on:
 jobs:
   Readme-Docs-Upload:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     env:
       PROTO_DIR: proto
     steps:
@@ -66,3 +68,8 @@ jobs:
         uses: readmeio/rdme@main
         with:
           rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+
+      - id: set-matrix
+        run: echo "::set-output name=matrix::$(ls ./grpc-doc/*.md | jq -R -s -c 'split("\n")[:-1]')"
+      - name: display matrux
+        run: echo "${{matrix}}"
