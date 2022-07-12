@@ -28,6 +28,7 @@ jobs:
 
       - name: Run protoc command
         run: |
+          mkdir documents
           protoc --doc_out=./documents --doc_opt=markdown,index.md proto/*.proto
           protoc --doc_out=./documents --doc_opt=markdown,demo.md proto/*.proto
 
