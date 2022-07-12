@@ -54,27 +54,27 @@ jobs:
         run: |
           cat ./category.md
 
-      - name: Finding files and store to output
-        id: finding-files
-        run: |
-          pwd
-          cd /home/runner/work/documents
-          pwd
-          echo "::set-output name=FILELIST::$(find -L /home/runner/work/documents -name "*.md" -print)"
+      # - name: Finding files and store to output
+      #   id: finding-files
+      #   run: |
+      #     pwd
+      #     cd /home/runner/work/documents
+      #     pwd
+      #     echo "::set-output name=FILELIST::$(find -L /home/runner/work/documents -name "*.md" -print)"
 
-      - name: files list
-        run: |
-          ls ./documents
-          echo "-------------"
-          echo "${{ steps.finding-files.outputs.FILELIST }}"
+      # - name: files list
+      #   run: |
+      #     ls ./documents
+      #     echo "-------------"
+      #     echo "${{ steps.finding-files.outputs.FILELIST }}"
 
-      - name: Processing my found files from output
-        run: |
-          IFS="," read -a myarray <<< ${{ steps.finding-files.outputs.FILELIST }}
-          for i in "${myarray[@]}"; do
-            file_name=$(basename "${i}")
-            echo $file_name
-          done
+      # - name: Processing my found files from output
+      #   run: |
+      #     IFS="," read -a myarray <<< ${{ steps.finding-files.outputs.FILELIST }}
+      #     for i in "${myarray[@]}"; do
+      #       file_name=$(basename "${i}")
+      #       echo $file_name
+      #     done
 
       - name: Add category to md file
         run: |
@@ -87,7 +87,7 @@ jobs:
           ls ./documents
           cat ./documents/index-new.md
 
-      #- name: Sync docs to ReadMe
-      #uses: readmeio/rdme@main
-      #with:
-      #rdme: docs ./documents --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+      - name: Sync docs to ReadMe
+        uses: readmeio/rdme@main
+        with:
+          rdme: docs ./documents --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
