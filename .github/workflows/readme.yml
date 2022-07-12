@@ -57,7 +57,12 @@ jobs:
       - name: Finding files and store to output
         id: finding-files
         run: |
-          echo "::set-output name=FILELIST::$(find . '*.md' -print)"
+          echo "::set-output name=FILELIST::$(find . -name '*.md' -print)"
+
+      - name: files list
+        id: finding-files
+        run: |
+          echo "${{ steps.finding-files.outputs.FILELIST }}"
 
       - name: Processing my found files from output
         run: |
