@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir ./grpc-doc
           protoc --doc_out=./grpc-doc --doc_opt=markdown,index.md proto/*.proto
-          protoc --doc_out=./grpc-doc --doc_opt=markdown,index-demo.md proto/*.proto
+          protoc --doc_out=./grpc-doc --doc_opt=markdown,demo.md proto/*.proto
 
       - name: Check category.md file existence
         id: check_files
@@ -76,4 +76,6 @@ jobs:
           echo "::set-output name=FILELIST::$(find ./grpc-doc -name '*.md' -print)"
 
       - id: matrix
-        run: echo "${{ steps.finding-files.outputs.FILELIST }}"
+        run: |
+          ls ./grpc-doc
+          echo "${{ steps.finding-files.outputs.FILELIST }}"
