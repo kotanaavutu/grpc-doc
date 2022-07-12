@@ -70,4 +70,6 @@ jobs:
           rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
 
       - id: set-matrix
-        run: echo "::set-output name=matrix::$(ls -a ./grpc-doc )"
+        run: echo "::set-output name=matrix::$(ls ./grpc-doc )"
+      - id: set-matrix
+        run: echo "${{matrix}}"
