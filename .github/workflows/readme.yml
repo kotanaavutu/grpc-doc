@@ -30,6 +30,7 @@ jobs:
         run: |
           mkdir ./grpc-doc
           protoc --doc_out=./grpc-doc --doc_opt=markdown,index.md proto/*.proto
+          protoc --doc_out=./grpc-doc --doc_opt=markdown,index-demo.md proto/*.proto
 
       - name: Check category.md file existence
         id: check_files
