@@ -75,4 +75,4 @@ jobs:
           echo "::set-output name=FILELIST::$(find ./grpc-doc -name '*.md' -print)"
 
       - id: matrix
-        run: echo "${{FILELIST}}"
+        run: echo "${{ steps.finding-files.outputs.FILELIST }}"
