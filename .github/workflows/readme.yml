@@ -28,7 +28,6 @@ jobs:
 
       - name: Run protoc command
         run: |
-          mkdir ./documents
           protoc --doc_out=./documents --doc_opt=markdown,index.md proto/*.proto
           protoc --doc_out=./documents --doc_opt=markdown,demo.md proto/*.proto
 
@@ -57,8 +56,10 @@ jobs:
       - name: Finding files and store to output
         id: finding-files
         run: |
+          cd /home/runner/work/documents
           pwd
-          echo "::set-output name=FILELIST::$(find -L ./documents -name "*.md" -print)"
+          echo "::set-output name=FILELIST::$(find -L /home/runner/work/documents -name "*.md" -print)"
+          pwd
 
       - name: files list
         run: |
