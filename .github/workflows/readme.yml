@@ -60,7 +60,6 @@ jobs:
           echo "::set-output name=FILELIST::$(find . -name '*.md' -print)"
 
       - name: files list
-        id: finding-files
         run: |
           echo "${{ steps.finding-files.outputs.FILELIST }}"
 
