@@ -54,6 +54,19 @@ jobs:
         run: |
           cat ./category.md
 
+      - name: Finding files and store to output
+        id: finding-files
+        run: |
+          echo "::set-output name=FILELIST::$(find ./grpc-doc -name '*.md' -print)"
+
+      - name: Processing my found files from output
+        run: |
+          IFS="," read -a myarray <<< ${{ steps.finding-files.outputs.FILELIST }}
+          for i in "${myarray[@]}"; do
+            file_name=$(basename "${i}")
+            echo $file_name
+          done
+
       - name: Add category to md file
         run: |
           cat ./category.md ./grpc-doc/index.md > ./grpc-doc/index-new.md
@@ -69,11 +82,6 @@ jobs:
       #uses: readmeio/rdme@main
       #with:
       #rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
-
-      - name: Finding files and store to output
-        id: finding-files
-        run: |
-          echo "::set-output name=FILELIST::$(find ./grpc-doc -name '*.md' -print)"
 
       - id: matrix
         run: |
