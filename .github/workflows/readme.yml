@@ -83,6 +83,7 @@ jobs:
 
       - name: Show file content
         run: |
+          rm ./documents/demo.md
           rm ./documents/index.md
           ls ./documents
           cat ./documents/index-new.md
