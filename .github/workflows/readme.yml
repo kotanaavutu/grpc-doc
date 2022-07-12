@@ -61,6 +61,8 @@ jobs:
 
       - name: files list
         run: |
+          ls ./grpc-doc
+          echo "-------------"
           echo "${{ steps.finding-files.outputs.FILELIST }}"
 
       - name: Processing my found files from output
@@ -86,8 +88,3 @@ jobs:
       #uses: readmeio/rdme@main
       #with:
       #rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
-
-      - id: matrix
-        run: |
-          ls ./grpc-doc
-          echo "${{ steps.finding-files.outputs.FILELIST }}"
