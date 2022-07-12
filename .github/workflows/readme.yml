@@ -28,9 +28,9 @@ jobs:
 
       - name: Run protoc command
         run: |
-          mkdir ./grpc-doc
-          protoc --doc_out=./grpc-doc --doc_opt=markdown,index.md proto/*.proto
-          protoc --doc_out=./grpc-doc --doc_opt=markdown,demo.md proto/*.proto
+          mkdir ./documents
+          protoc --doc_out=./documents --doc_opt=markdown,index.md proto/*.proto
+          protoc --doc_out=./documents --doc_opt=markdown,demo.md proto/*.proto
 
       - name: Check category.md file existence
         id: check_files
@@ -58,11 +58,11 @@ jobs:
         id: finding-files
         run: |
           pwd
-          echo "::set-output name=FILELIST::$(find -L . -name "*.md" -print)"
+          echo "::set-output name=FILELIST::$(find -L ./documents -name "*.md" -print)"
 
       - name: files list
         run: |
-          ls ./grpc-doc
+          ls ./documents
           echo "-------------"
           echo "${{ steps.finding-files.outputs.FILELIST }}"
 
@@ -76,16 +76,16 @@ jobs:
 
       - name: Add category to md file
         run: |
-          cat ./category.md ./grpc-doc/index.md > ./grpc-doc/index-new.md
+          cat ./category.md ./documents/index.md > ./documents/index-new.md
         shell: bash
 
       - name: Show file content
         run: |
-          rm ./grpc-doc/index.md
-          ls ./grpc-doc
-          cat ./grpc-doc/index-new.md
+          rm ./documents/index.md
+          ls ./documents
+          cat ./documents/index-new.md
 
       #- name: Sync docs to ReadMe
       #uses: readmeio/rdme@main
       #with:
-      #rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+      #rdme: docs ./documents --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
