@@ -65,10 +65,10 @@ jobs:
           ls ./grpc-doc
           cat ./grpc-doc/index-new.md
 
-      - name: Sync docs to ReadMe
-        uses: readmeio/rdme@main
-        with:
-          rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+      #- name: Sync docs to ReadMe
+      #uses: readmeio/rdme@main
+      #with:
+      #rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
 
       - name: Finding files and store to output
         id: finding-files
