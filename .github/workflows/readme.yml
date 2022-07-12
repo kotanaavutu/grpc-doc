@@ -57,7 +57,10 @@ jobs:
       - name: Finding files and store to output
         id: finding-files
         run: |
-          echo "::set-output name=FILELIST::$(find -L /grpc-doc -name "*.md" -print)"
+          pwd            
+          cd grpc-doc
+          pwd   
+          echo "::set-output name=FILELIST::$(find -L . -name "*.md" -print)"
 
       - name: files list
         run: |
