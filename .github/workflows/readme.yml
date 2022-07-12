@@ -69,7 +69,10 @@ jobs:
         with:
           rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
 
-      - id: set-matrix
-        run: echo "::set-output name=matrix::$(ls ./grpc-doc )"
+      - name: Finding files and store to output
+        id: finding-files
+        run: |
+          echo "::set-output name=FILELIST::$(find ./grpc-doc -name '*.md' -print)"
+
       - id: matrix
-        run: echo "${{matrix}}"
+        run: echo "${{FILELIST}}"
