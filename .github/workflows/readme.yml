@@ -66,12 +66,17 @@ jobs:
       - name: Echo things.json
         run: echo "${{ steps.filedata.outputs.content }}"
 
+      - name: Check category.md file existence
+        id: check_files
+        run: |
+          echo "::set-output name=FILELIST::$(find ./documents  -name '*.md')"
+
       - name: Processing my found files from output
         run: |
-          chmod -R 777 ./documents
-          IFS=$'\n' read -a myarray <<< ${{ steps.filedata.outputs.content }}
+          IFS=$'\n' read -a myarray <<< ${{ steps.finding-files.outputs.FILELIST }}
           for i in "${myarray[@]}"; do
-            echo ${i}
+            file_name=$(basename "${i}")
+            echo $file_name
           done
 
       # - name: Add category to md file
