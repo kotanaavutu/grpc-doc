@@ -75,8 +75,7 @@ jobs:
         run: |
           IFS="," read -a myarray <<<  echo "$(find ./documents -type f -iname "index*.md" -print)"
           for i in "${myarray[@]}"; do
-            file_name=$("${i}")
-            echo ${file_name}
+            echo ${i}
           done
 
       # - name: Add category to md file
