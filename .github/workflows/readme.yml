@@ -55,16 +55,16 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
-          echo "::set-output name=FILELIST::$(find ./ -type f -name "index*.md" -print)"
+          echo "::set-output name=FILELIST::$(find ./ -type f -name "index*.md" -printf "%f\n")"
 
-      - name: Processing my found files from output
-        run: |
-          IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
-          mkdir ./release-docs
-          for i in "${myarray[@]}"; do
-            cat ./category.md ${i} > ./release-docs/${i}
-            rm ${i}
-          done
+      # - name: Processing my found files from output
+      #   run: |
+      #     IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
+      #     mkdir ./release-docs
+      #     for i in "${myarray[@]}"; do
+      #       cat ./category.md ${i} > ./release-docs/${i}
+      #       rm ${i}
+      #     done
 
       # - name: Add category to md file
       #   run: |
