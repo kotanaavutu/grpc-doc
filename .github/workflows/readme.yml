@@ -31,8 +31,6 @@ jobs:
           mkdir documents
           pwd
           protoc --doc_out=./documents --doc_opt=markdown,doc-index.md proto/*.proto
-          protoc --doc_out=./documents --doc_opt=markdown,doc-index-1.md proto/*.proto
-          protoc --doc_out=./documents --doc_opt=markdown,doc-index-2.md proto/*.proto
 
       - name: Check category.md file existence
         id: check_files
@@ -55,12 +53,7 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
-          ls ./documents | jq -R -s -c 'split("\n")[:-1]'
           echo "::set-output name=FILELIST::$(ls ./documents -1p | grep -v / | xargs echo | sed 's/ /,/g')"
-
-      - name: filepath
-        run: |
-          echo "${{ steps.check_files1.outputs.FILELIST }}"
 
       - name: Processing my found files from output
         run: |
@@ -69,27 +62,6 @@ jobs:
             cat ./category.txt ./documents/${i} > ./documents/release-${i}
             rm ./documents/${i}
           done
-
-      # - name: Processing my found files from output
-      #   run: |
-      #     IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
-      #     mkdir ./release-docs
-      #     for i in "${myarray[@]}"; do
-      #       echo fname=doc--$(date +%s) >> $GITHUB_ENV
-      #       echo ${{ env.fname }}
-      #       echo ${fname}
-      #       cat ./category.txt ${i} > ./release-docs/${i}
-      #       rm ${i}
-      #     done
-
-      # - name: Add category to md file
-      #   run: |
-      #     cat ./category.md ./documents/index.md > ./documents/index-new.md
-      #   shell: bash
-
-      - name: Show file content
-        run: |
-          ls ./documents
 
       - name: Sync docs to ReadMe
         uses: readmeio/rdme@main
