@@ -71,8 +71,7 @@ jobs:
           chmod -R 777 ./documents
           IFS=$'\n' read -a myarray <<< ${{ steps.filedata.outputs.content }}
           for i in "${myarray[@]}"; do
-            file_name=$(basename "${i}")
-            echo $file_name
+            echo ${i}
           done
 
       # - name: Add category to md file
