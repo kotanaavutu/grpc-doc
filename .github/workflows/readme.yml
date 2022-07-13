@@ -71,6 +71,15 @@ jobs:
           echo "$(find ./documents  -name '*.md')" > files.txt
         shell: bash
 
+      - name: Read generated html file
+        id: filedata
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./files.txt
+
+      - name: Echo things.json
+        run: echo "${{ steps.filedata.outputs.content }}"
+
       - name: Show files list
         run: |
           cat ./files.txt
