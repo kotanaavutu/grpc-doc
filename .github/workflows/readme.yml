@@ -73,8 +73,12 @@ jobs:
 
       - name: Processing my found files from output
         run: |
-          read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
-          for f in $myarray; do ${f}; done
+          IFS="," read -a myarray <<< ${{ steps.finding-files.outputs.FILELIST }}
+          for i in "${myarray[@]}"; do
+            file_path=$(dirname "${i}")
+            file_name=$(basename "${i}")
+            cat file_name
+          done
 
       # - name: Add category to md file
       #   run: |
