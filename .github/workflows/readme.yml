@@ -68,8 +68,7 @@ jobs:
       - name: Finding files and store to output
         id: finding-files
         run: |
-          output="$(find ./documents  -name '*.md')"
-          echo "::set-output name=changed-fields-output::$output"
+          echo "$(find ./documents  -name '*.md')"
         shell: bash
 
       - name: files list olddd
