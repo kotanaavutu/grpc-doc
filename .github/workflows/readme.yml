@@ -77,7 +77,8 @@ jobs:
           for i in "${myarray[@]}"; do
             file_path=$(dirname "${i}")
             file_name=$(basename "${i}")
-            cat file_name
+            echo ${file_path}
+            echo ${file_name}
           done
       - name: Processing my found files from output
         run: |
@@ -85,7 +86,8 @@ jobs:
           for i in "${myarray[@]}"; do
             file_path=$(dirname "${i}")
             file_name=$(basename "${i}")
-            cat file_name
+            echo ${file_path}
+            echo ${file_name}
           done
 
       # - name: Add category to md file
