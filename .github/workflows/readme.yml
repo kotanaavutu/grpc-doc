@@ -55,7 +55,7 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
-          echo "::set-output name=FILELIST::$(find ./documents -name "index*.md" -print)"
+          echo "::set-output name=FILELIST::$(find ./documents -name "index*" -print)"
 
       - name: Processing my found files from output
         run: |
