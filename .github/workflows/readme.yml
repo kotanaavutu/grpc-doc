@@ -52,9 +52,14 @@ jobs:
           " > ./category.md
         shell: bash
 
+      - name: Check category.md file existence
+        id: check_files1
+        run: |
+          echo "::set-output name=FILELIST::$(find ./ -type f -name "index*.md" -print)"
+
       - name: Processing my found files from output
         run: |
-          IFS="," read -a myarray <<<  echo "$(find ./documents -type f -iname "index*.md" -print)"
+          IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           for i in "${myarray[@]}"; do
             cat ./category.md ${i} > ./documents/${i}-doc.md
             rm ${i}
