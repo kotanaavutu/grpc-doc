@@ -73,6 +73,7 @@ jobs:
 
       - name: Show files list
         run: |
+          cat ./files.txt
           output="$(cat ./files.txt)"
           echo "::set-output name=changed-fields-output::$output"
 
