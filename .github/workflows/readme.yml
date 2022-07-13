@@ -66,8 +66,8 @@ jobs:
         run: |
           IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           for i in "${myarray[@]}"; do
-            echo "Value: ${i}"
-            echo "Value: ${i%.*}"
+            cat ./category.txt ${i} > ./documents/release-${i%.*}
+            rm ./documents/${i%.*}
           done
 
       # - name: Processing my found files from output
@@ -89,7 +89,7 @@ jobs:
 
       - name: Show file content
         run: |
-          ls ./release-docs
+          ls ./documents
 
       - name: Sync docs to ReadMe
         uses: readmeio/rdme@main
