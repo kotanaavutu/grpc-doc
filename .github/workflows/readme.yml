@@ -59,7 +59,7 @@ jobs:
       - name: Finding files and store to output
         id: finding-files
         run: |
-          echo "::set-output name=FILELIST::$(find ./documents -name *)"
+          echo "::set-output name=FILELIST::$(find ./documents -name "*.*")"
 
       - name: files list
         run: |
