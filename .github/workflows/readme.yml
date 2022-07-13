@@ -55,7 +55,7 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
-          echo "::set-output name=FILELIST::$(find ./ -name "index*.md" -print)"
+          echo "::set-output name=FILELIST::$(find ./documents -name "index*.md" -print)"
 
       - name: Processing my found files from output
         run: |
@@ -64,6 +64,7 @@ jobs:
           for i in "${myarray[@]}"; do
             echo fname=doc--$(date +%s) >> $GITHUB_ENV
             echo ${{ env.fname }} 
+            echo ${fname} 
             cat ./category.md ${i} > ./release-docs/${i}
             rm ${i}
           done
