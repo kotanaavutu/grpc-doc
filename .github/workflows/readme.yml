@@ -55,6 +55,7 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
+          ls | jq -R -s -c 'split("\n")[:-1]'
           echo "::set-output name=FILELIST::$(find . -name '*.md' -print)"
 
       - name: Processing my found files from output
