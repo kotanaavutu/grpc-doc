@@ -31,7 +31,7 @@ jobs:
           mkdir documents
           pwd
           protoc --doc_out=./documents --doc_opt=markdown,index.md proto/*.proto
-          protoc --doc_out=./documents --doc_opt=markdown,demo.md proto/*.proto
+          find ./documents -name *.md
 
       - name: Check category.md file existence
         id: check_files
@@ -85,6 +85,7 @@ jobs:
       - name: Show file content
         run: |
           rm ./documents/index.md
+          rm ./documents/demo.md
           ls ./documents
           cat ./documents/index-new.md
 
