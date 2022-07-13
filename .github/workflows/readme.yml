@@ -55,16 +55,10 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
-          find ./documents -name doc-index-2.md
-          echo "::set-output name=FILELIST::$(find ./documents -name doc-index-2.md -print)"
-      - name: Check category.md file existence
-        id: check_files2
-        run: |
-          echo "::set-output name=FILELIST::$(find ./ -name doc-index-2.md -print)"
+          echo "::set-output name=FILELIST::$(find ./documents -name *.md -print)"
 
       - name: Processing my found files from output
         run: |
-          echo "${{ steps.check_files1.outputs.FILELIST }}"
           IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           mkdir ./release-docs
           for i in "${myarray[@]}"; do
