@@ -57,14 +57,14 @@ jobs:
         run: |
           echo "::set-output name=FILELIST::$(find ./ -type f -name "index*.md" -printf "%f\n")"
 
-      # - name: Processing my found files from output
-      #   run: |
-      #     IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
-      #     mkdir ./release-docs
-      #     for i in "${myarray[@]}"; do
-      #       cat ./category.md ${i} > ./release-docs/${i}
-      #       rm ${i}
-      #     done
+      - name: Processing my found files from output
+        run: |
+          IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
+          mkdir ./release-docs
+          for i in "${myarray[@]}"; do
+            cat ./category.md ./documents/${i} > ./release-docs/${i}
+            rm ./documents/${i}
+          done
 
       # - name: Add category to md file
       #   run: |
@@ -73,6 +73,8 @@ jobs:
 
       - name: Show file content
         run: |
+          ls ./documents
+          echo "------------"
           ls ./release-docs
 
       - name: Sync docs to ReadMe
