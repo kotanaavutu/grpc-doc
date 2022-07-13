@@ -73,9 +73,8 @@ jobs:
 
       - name: Processing my found files from output
         run: |
-          f = "${{ steps.check_files1.outputs.FILELIST }}"
-          echo "${f//$'\n'/','}"
-          IFS="," read -a myarray <<< echo "${f//$'\n'/','}"
+          f = 
+          IFS="\n" read -a myarray <<<  ${{ steps.finding-files.outputs.FILELIST }}
           for i in "${myarray[@]}"; do
             file_path=$(dirname "${i}")
             file_name=$(basename "${i}")
