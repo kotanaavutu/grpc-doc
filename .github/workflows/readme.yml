@@ -59,7 +59,6 @@ jobs:
           echo "::set-output name=FILELIST::$(ls ./documents | jq -R -s -c 'split("\n")[:-1]')"
 
       - name: filepath
-        id: check_files1
         run: |
           echo "${{ steps.check_files1.outputs.FILELIST }}"
 
