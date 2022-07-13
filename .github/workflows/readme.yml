@@ -65,7 +65,7 @@ jobs:
             echo fname=doc--$(date +%s) >> $GITHUB_ENV
             echo ${{ env.fname }} 
             echo ${fname} 
-            cat ./category.md ${i} > ./release-docs/${i}
+            cat ./category.txt ${i} > ./release-docs/${i}
             rm ${i}
           done
 
