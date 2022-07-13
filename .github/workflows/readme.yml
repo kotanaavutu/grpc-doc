@@ -56,7 +56,12 @@ jobs:
         id: check_files1
         run: |
           ls ./documents | jq -R -s -c 'split("\n")[:-1]'
-          echo "::set-output name=FILELIST::$(find . -name '*.md' -print)"
+          echo "::set-output name=FILELIST::$(ls ./documents | jq -R -s -c 'split("\n")[:-1]')"
+
+      - name: filepath
+        id: check_files1
+        run: |
+          echo "${{ steps.check_files1.outputs.FILELIST }}"
 
       - name: Processing my found files from output
         run: |
