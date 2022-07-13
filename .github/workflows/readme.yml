@@ -52,27 +52,12 @@ jobs:
           " > ./category.md
         shell: bash
 
-      - name: Show category file content
-        run: |
-          cat ./category.md
-
-      - name: Get and store current deploymentId
-        run: |
-          find ./documents  -name '*.md' -type f
-        id: old-deployment-id
-
-      - name: files list newww
-        run: |
-          echo "${{ steps.old-deployment-id.outputs.stdout }}"
-
-      - name: Finding files and store to output
-        id: finding-files
+      - name: Finding all generated .md files
         run: |
           echo "$(find ./documents  -name '*.md')" > files.txt
-          echo "$(sed -z 's/\n/,/g;s/,$/\n/' ./files.txt)"
         shell: bash
 
-      - name: Read generated html file
+      - name: Read generated file names
         id: filedata
         uses: juliangruber/read-file-action@v1
         with:
@@ -81,23 +66,9 @@ jobs:
       - name: Echo things.json
         run: echo "${{ steps.filedata.outputs.content }}"
 
-      - name: Show files list
-        run: |
-          cat ./files.txt
-          output="$(cat ./files.txt)"
-          echo "::set-output name=changed-fields-output::$output"
-
-      - name: files list olddd
-        run: |
-          echo "${{ steps.finding-files.outputs.stdout }}"
-
-      - name: files list
-        run: |
-          echo "${{ steps.finding-files.outputs.FILELIST }}"
-
       - name: Processing my found files from output
         run: |
-          IFS=$'\n' read -a myarray <<< ${{ steps.finding-files.outputs.FILELIST }}
+          IFS=$'\n' read -a myarray <<< ${{ steps.filedata.outputs.content }}
           for i in "${myarray[@]}"; do
             file_name=$(basename "${i}")
             echo $file_name
