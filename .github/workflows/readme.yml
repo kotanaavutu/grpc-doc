@@ -73,7 +73,7 @@ jobs:
 
       - name: Processing my found files from output
         run: |
-          IFS="," read -a myarray <<<  echo "$(find ./ -name "index*.md" -print)"
+          IFS="," read -a myarray <<<  echo "$(find ./documents -name "index*.md" -print)"
           for i in "${myarray[@]}"; do
             file_name=$("${i}")
             echo ${file_name}
