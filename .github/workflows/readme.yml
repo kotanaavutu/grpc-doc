@@ -52,30 +52,12 @@ jobs:
           " > ./category.md
         shell: bash
 
-      - name: Finding all generated .md files
-        run: |
-          echo "$(find ./documents  -name '*.md')" > files.txt
-        shell: bash
-
-      - name: Read generated file names
-        id: filedata
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./files.txt
-
-      - name: Echo things.json
-        run: echo "${{ steps.filedata.outputs.content }}"
-
-      - name: Check category.md file existence
-        id: check_files1
-        run: |
-          echo "::set-output name=FILELIST::$(find ./ -type f -name "index*" -print)"
-
       - name: Processing my found files from output
         run: |
           IFS="," read -a myarray <<<  echo "$(find ./documents -type f -iname "index*.md" -print)"
           for i in "${myarray[@]}"; do
-            echo ${i}
+            cat ./category.md ${i} > ./documents/${i}-doc.md
+            rm ${i}
           done
 
       # - name: Add category to md file
@@ -83,13 +65,11 @@ jobs:
       #     cat ./category.md ./documents/index.md > ./documents/index-new.md
       #   shell: bash
 
-      # - name: Show file content
-      #   run: |
-      #     rm ./documents/index.md
-      #     ls ./documents
-      #     cat ./documents/index-new.md
+      - name: Show file content
+        run: |
+          ls ./documents
 
-      # - name: Sync docs to ReadMe
-      #   uses: readmeio/rdme@main
-      #   with:
-      #     rdme: docs ./documents --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+      - name: Sync docs to ReadMe
+        uses: readmeio/rdme@main
+        with:
+          rdme: docs ./documents --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
