@@ -70,6 +70,11 @@ jobs:
         run: |
           find ./documents  -name '*.md' -type f
           echo "::set-output name=FILELIST::$(find ./documents  -name '*.md' -type f)"
+        shell: bash
+
+      - name: files list olddd
+        run: |
+          echo "${{ steps.finding-files.outputs.stdout }}"
 
       - name: files list
         run: |
