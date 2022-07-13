@@ -68,8 +68,12 @@ jobs:
       - name: Finding files and store to output
         id: finding-files
         run: |
-          echo "$(find ./documents  -name '*.md')"
+          echo "$(find ./documents  -name '*.md')" > files.txt
         shell: bash
+
+      - name: Show files list
+        run: |
+          cat ./files.txt
 
       - name: files list olddd
         run: |
