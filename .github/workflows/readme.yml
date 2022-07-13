@@ -69,11 +69,11 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
-          echo "::set-output name=FILELIST::$(find . -type f -name index*.*"
+          echo "::set-output name=FILELIST::$(find ./ -type f -name "index*")"
 
       - name: Processing my found files from output
         run: |
-          IFS="\n" read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
+          IFS=$'\n' read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           for i in "${myarray[@]}"; do
             file_name=$(basename "${i}")
             echo $file_name
