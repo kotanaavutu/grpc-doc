@@ -73,20 +73,9 @@ jobs:
 
       - name: Processing my found files from output
         run: |
-          IFS="," read -a myarray <<<  echo "$(find ./ -type f -name "index*" -print)"
+          IFS="," read -a myarray <<<  echo "$(find ./ -name "index*" -print)"
           for i in "${myarray[@]}"; do
-            file_path=$(dirname "${i}")
             file_name=$(basename "${i}")
-            echo ${file_path}
-            echo ${file_name}
-          done
-      - name: Processing my found files from output
-        run: |
-          IFS="," read -a myarray <<<  ${{ steps.check_files1.outputs.FILELIST }}
-          for i in "${myarray[@]}"; do
-            file_path=$(dirname "${i}")
-            file_name=$(basename "${i}")
-            echo ${file_path}
             echo ${file_name}
           done
 
