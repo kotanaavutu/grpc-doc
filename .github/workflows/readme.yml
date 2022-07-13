@@ -73,7 +73,7 @@ jobs:
 
       - name: Show files list
         run: |
-          output="$(cat files.txt)"
+          output="$(cat ./files.txt)"
           output="${output//$'\n'/\\n}"
           output="${output// / }"     # replace regular space with 'En Space'
           echo "::set-output name=changed-fields-output::$output"
