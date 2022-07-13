@@ -69,12 +69,10 @@ jobs:
         id: finding-files
         run: |
           find ./documents  -name '*.md' -type f
-          echo "::set-output name=FILELIST::$(find ./documents -name "*.*")"
+          echo "::set-output name=FILELIST::$(find ./documents  -name '*.md' -type f)"
 
       - name: files list
         run: |
-          ls ./documents
-          echo "-------------"
           echo "${{ steps.finding-files.outputs.FILELIST }}"
 
       - name: Processing my found files from output
