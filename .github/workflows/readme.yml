@@ -31,7 +31,7 @@ jobs:
           mkdir documents
           pwd
           protoc --doc_out=./documents --doc_opt=markdown,index.md proto/*.proto
-          echo find ./documents -name *.md
+          echo "$(find ./documents -name *.md)"
 
       - name: Check category.md file existence
         id: check_files
