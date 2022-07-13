@@ -59,6 +59,7 @@ jobs:
 
       - name: Processing my found files from output
         run: |
+          echo "${{ steps.check_files1.outputs.FILELIST }}"
           IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           mkdir ./release-docs
           for i in "${myarray[@]}"; do
