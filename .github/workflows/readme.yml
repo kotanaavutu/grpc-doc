@@ -43,7 +43,7 @@ jobs:
         run: |
           touch ./category.txt
           echo "---
-          title: Syncing Docs
+          title: Syncing Docs demo
           excerpt: Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!
           category: ${{ secrets.README_API_DEFINITION_ID }}
           ---
