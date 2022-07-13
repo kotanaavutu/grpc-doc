@@ -29,6 +29,7 @@ jobs:
       - name: Run protoc command
         run: |
           mkdir documents
+          pwd
           protoc --doc_out=./documents --doc_opt=markdown,index.md proto/*.proto
           protoc --doc_out=./documents --doc_opt=markdown,demo.md proto/*.proto
 
@@ -83,7 +84,6 @@ jobs:
 
       - name: Show file content
         run: |
-          rm ./documents/demo.md
           rm ./documents/index.md
           ls ./documents
           cat ./documents/index-new.md
