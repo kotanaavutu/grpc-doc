@@ -61,7 +61,7 @@ jobs:
         run: |
           IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           for i in "${myarray[@]}"; do
-            cat ./category.md ${i} > ./documents/${i}-doc.md
+            cat ./category.md ${i} > ./documents/doc-${i}
             rm ${i}
           done
 
