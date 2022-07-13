@@ -73,8 +73,8 @@ jobs:
 
       - name: Processing my found files from output
         run: |
-          IFS="\n" read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
-          for f in $FILES; do ${f}; done
+          read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
+          for f in $myarray; do ${f}; done
 
       # - name: Add category to md file
       #   run: |
