@@ -75,7 +75,7 @@ jobs:
         run: |
           IFS="," read -a myarray <<<  echo "$(find ./ -name "index*" -print)"
           for i in "${myarray[@]}"; do
-            file_name=$(basename "${i}")
+            file_name=$("${i}")
             echo ${file_name}
           done
 
