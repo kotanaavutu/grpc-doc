@@ -58,14 +58,12 @@ jobs:
 
       - name: Get and store current deploymentId
         run: |
-          OLD_DEPLOYMENT_ID=$(find ./documents  -name '*.md' -type f)
-          echo '::set-output name=OLD_DEPLOYMENT_ID::$OLD_DEPLOYMENT_ID'
-          echo "${{OLD_DEPLOYMENT_ID}}"
+          find ./documents  -name '*.md' -type f
         id: old-deployment-id
 
       - name: files list newww
         run: |
-          echo "${{ steps.old-deployment-id.outputs.OLD_DEPLOYMENT_ID }}"
+          echo "${{ steps.old-deployment-id.outputs.stdout }}"
 
       - name: Finding files and store to output
         id: finding-files
