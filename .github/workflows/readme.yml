@@ -60,8 +60,9 @@ jobs:
       - name: Processing my found files from output
         run: |
           IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
+          mkdir ./release-docs
           for i in "${myarray[@]}"; do
-            cat ./category.md ${i} > ./documents/doc-${i}
+            cat ./category.md ${i} > ./release-docs/${i}
             rm ${i}
           done
 
@@ -72,9 +73,9 @@ jobs:
 
       - name: Show file content
         run: |
-          ls ./documents
+          ls ./release-docs
 
       - name: Sync docs to ReadMe
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./documents --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+          rdme: docs ./release-docs --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
