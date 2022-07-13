@@ -56,7 +56,7 @@ jobs:
         id: check_files1
         run: |
           ls ./documents | jq -R -s -c 'split("\n")[:-1]'
-          echo "::set-output name=FILELIST::$(ls ./documents -p | grep -v / | tr '\n' ',')"
+          echo "::set-output name=FILELIST::$(ls ./documents -1p | grep -v / | xargs echo | sed 's/ /, /g')"
 
       - name: filepath
         run: |
