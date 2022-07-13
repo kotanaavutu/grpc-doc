@@ -69,6 +69,7 @@ jobs:
         id: finding-files
         run: |
           echo "$(find ./documents  -name '*.md')" > files.txt
+          sed -z 's/\n/,/g;s/,$/\n/' ./files.txt
         shell: bash
 
       - name: Read generated html file
