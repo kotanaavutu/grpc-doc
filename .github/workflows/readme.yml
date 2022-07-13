@@ -63,7 +63,7 @@ jobs:
 
       - name: Processing my found files from output
         run: |
-          IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
+          IFS="," read -a myarray <<< $(find ./documents -name '*.md' -print)
           mkdir ./release-docs
           for i in "${myarray[@]}"; do
             echo fname=doc--$(date +%s) >> $GITHUB_ENV
