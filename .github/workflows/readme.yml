@@ -55,15 +55,17 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
-          echo "::set-output name=FILELIST::$(find ./ -type f -name "index*.md" -printf)"
+          echo "::set-output name=FILELIST::$(find ./ -type f -name "index*.md" -print)"
 
       - name: Processing my found files from output
         run: |
           IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           mkdir ./release-docs
           for i in "${myarray[@]}"; do
-            cat ./category.md ./documents/${i} > ./release-docs/${i}
-            rm ./documents/${i}
+            echo fname=doc--$(date +%s) >> $GITHUB_ENV
+            echo ${{ env.FOO }} 
+            cat ./category.md ${i} > ./release-docs/${i}
+            rm ${i}
           done
 
       # - name: Add category to md file
@@ -73,11 +75,9 @@ jobs:
 
       - name: Show file content
         run: |
-          ls ./documents
-          echo "------------"
           ls ./release-docs
 
       - name: Sync docs to ReadMe
         uses: readmeio/rdme@main
         with:
-          rdme: docs ./release-docs --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+          rdme: docs  --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
