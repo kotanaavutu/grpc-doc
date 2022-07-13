@@ -30,9 +30,9 @@ jobs:
         run: |
           mkdir documents
           pwd
-          protoc --doc_out=./documents --doc_opt=markdown,index.md proto/*.proto
-          protoc --doc_out=./documents --doc_opt=markdown,index-1.md proto/*.proto
-          protoc --doc_out=./documents --doc_opt=markdown,index-2.md proto/*.proto
+          protoc --doc_out=./documents --doc_opt=markdown,doc-index.md proto/*.proto
+          protoc --doc_out=./documents --doc_opt=markdown,doc-index-1.md proto/*.proto
+          protoc --doc_out=./documents --doc_opt=markdown,doc-index-2.md proto/*.proto
 
       - name: Check category.md file existence
         id: check_files
@@ -55,7 +55,7 @@ jobs:
       - name: Check category.md file existence
         id: check_files1
         run: |
-          echo "::set-output name=FILELIST::$(find ./ -name 'index*' -print)"
+          echo "::set-output name=FILELIST::$(find ./ -name 'doc-index*' -print)"
 
       - name: Processing my found files from output
         run: |
