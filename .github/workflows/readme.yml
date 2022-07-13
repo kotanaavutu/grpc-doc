@@ -66,21 +66,10 @@ jobs:
         run: |
           IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           for i in "${myarray[@]}"; do
-            file_path=$(dirname "${i}")
-            file_name=$(basename "${i}")
-            echo "-----------"
-            echo ${file_name}
+            echo "Value: ${i}"
+            echo "Value: ${i%.*}"
           done
 
-      - name: Processing my found files from output
-        run: |
-          IFS="," read -a myarray <<< $(find . -name '*.md' -print)
-          for i in "${myarray[@]}"; do
-            file_path=$(dirname "${i}")
-            file_name=$(basename "${i}")
-            echo "-----------"
-            echo ${file_name}
-          done
       # - name: Processing my found files from output
       #   run: |
       #     IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
