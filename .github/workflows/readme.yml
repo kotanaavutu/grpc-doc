@@ -68,6 +68,7 @@ jobs:
 
       - name: Processing my found files from output
         run: |
+          chmod -R 777 ./documents
           IFS=$'\n' read -a myarray <<< ${{ steps.filedata.outputs.content }}
           for i in "${myarray[@]}"; do
             file_name=$(basename "${i}")
