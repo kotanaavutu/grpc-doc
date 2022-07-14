@@ -2,7 +2,7 @@ name: Readme
 
 on:
   push:
-    branches: [test]
+    branches: [doc-automation]
 
 jobs:
   Readme-Docs-Upload:
@@ -41,7 +41,7 @@ jobs:
         run: |
           touch ./category.txt
           echo "---
-          title: Syncing Docs demo
+          title: grpc-test-doc
           excerpt: Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!
           category: ${{ secrets.README_API_DEFINITION_ID }}
           ---
