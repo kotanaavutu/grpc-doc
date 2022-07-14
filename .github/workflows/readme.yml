@@ -13,7 +13,6 @@ jobs:
       PROTO_DIR: proto
     steps:
       - uses: actions/checkout@v2
-
       - uses: wizhi/setup-buf@v1
         with:
           version: "0.36.0"
@@ -28,8 +27,7 @@ jobs:
 
       - name: Run protoc command
         run: |
-          mkdir documents
-          pwd
+          mkdir -p documents
           protoc --doc_out=./documents --doc_opt=markdown,doc-index.md proto/*.proto
 
       - name: Check category.md file existence
@@ -50,12 +48,12 @@ jobs:
           " > ./category.txt
         shell: bash
 
-      - name: Check category.md file existence
+      - name: get all the .md files.
         id: check_files1
         run: |
           echo "::set-output name=FILELIST::$(ls ./documents -1p | grep -v / | xargs echo | sed 's/ /,/g')"
 
-      - name: Processing my found files from output
+      - name: Adding readme header details(Category Id) to the md files
         run: |
           IFS="," read -a myarray <<< ${{ steps.check_files1.outputs.FILELIST }}
           for i in "${myarray[@]}"; do
