@@ -1,0 +1,69 @@
+name: Readme
+
+jobs:
+  Readme-Docs-Upload:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    env:
+      PROTO_DIR: proto
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: wizhi/setup-buf@v1
+        with:
+          version: "0.36.0"
+      - uses: arduino/setup-protoc@v1
+        with:
+          version: "3.x"
+      - name: Installing protoc-gen-go
+        run: |
+          go get github.com/golang/protobuf/protoc-gen-go
+          go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+          go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
+
+      - name: Run protoc command
+        run: |
+          mkdir ./grpc-doc
+          protoc --doc_out=./grpc-doc --doc_opt=markdown,index.md proto/*.proto
+
+      - name: Check category.md file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "category.md"
+
+      - name: Create header file
+        if: steps.check_files.outputs.files_exists == 'false'
+        run: |
+          touch ./category.md
+          echo "---
+          title: Syncing Docs
+          excerpt: Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!
+          category: ${{ secrets.README_API_DEFINITION_ID }}
+          ---
+          " > ./category.md
+        shell: bash
+
+      - name: Show category file content
+        run: |
+          cat ./category.md
+
+      - name: Add category to md file
+        run: |
+          cat ./category.md ./grpc-doc/index.md > ./grpc-doc/index-new.md
+        shell: bash
+
+      - name: Show file content
+        run: |
+          rm ./grpc-doc/index.md
+          ls ./grpc-doc
+          cat ./grpc-doc/index-new.md
+
+      - name: Sync docs to ReadMe
+        uses: readmeio/rdme@main
+        with:
+          rdme: docs ./grpc-doc --key=${{ secrets.README_DEVELOPERS_API_KEY }} --version=1.0
+
+      - id: set-matrix
+        run: echo "::set-output name=matrix::$(ls -a ./grpc-doc )"
