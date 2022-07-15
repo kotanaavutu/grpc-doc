@@ -41,7 +41,7 @@ jobs:
         run: |
           touch ./category.txt
           echo "---
-          title: grpc-test-doc
+          title: grpc-test-document
           excerpt: Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!
           category: ${{ secrets.README_API_DEFINITION_ID }}
           ---
